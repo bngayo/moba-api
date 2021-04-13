@@ -21,7 +21,7 @@ class UsersTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@example.com',
-            'owner' => true,
+            'member' => true,
         ]);
     }
 
@@ -35,7 +35,7 @@ class UsersTest extends TestCase
             ->assertInertia(function (Assert $page) {
                 $page->component('Users/Index');
                 $page->has('users.data', 5, function (Assert $page) {
-                    $page->hasAll(['id', 'name', 'email', 'owner', 'photo', 'deleted_at']);
+                    $page->hasAll(['id', 'name', 'email', 'member', 'photo', 'deleted_at']);
                 });
             });
     }
