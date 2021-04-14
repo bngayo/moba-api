@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('/test', function (Request $request) {
+    echo 'Api testing....';
+});
+
+Route::post('login')->uses('API\AuthController@login')->middleware('guest');
+Route::post('register')->uses('API\AuthController@register')->middleware('guest');
+Route::post('reset_password')->uses('API\AuthController@resetPassword')->middleware('guest');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

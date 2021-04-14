@@ -13,10 +13,11 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Http\UploadedFile;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use SoftDeletes, Authenticatable, Authorizable, HasFactory;
+    use SoftDeletes, Authenticatable, Authorizable, HasFactory, HasApiTokens;
 
     protected $casts = [
         'member' => 'boolean',
