@@ -21,6 +21,8 @@ Route::post('login')->uses('API\AuthController@login')->middleware('guest');
 Route::post('register')->uses('API\AuthController@register')->middleware('guest');
 Route::post('reset_password')->uses('API\AuthController@resetPassword')->middleware('guest');
 
+Route::post('stk_push')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
