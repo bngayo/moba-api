@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Organization;
+use App\Models\SubscriptionPlan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,29 @@ class DatabaseSeeder extends Seeder
             'phone' => '+254720000000',
             'member' => true,
         ]);
+
+        SubscriptionPlan::createMany(
+            [
+                'description' => 'Monthly',
+                'days' => 30,
+                'fee' => 500
+            ],
+            [
+                'description' => 'Quartely',
+                'days' => 120,
+                'fee' => 1500
+            ],
+            [
+                'description' => 'Semi Annual',
+                'days' => 180,
+                'fee' => 3000
+            ],
+            [
+                'description' => 'Annual',
+                'days' => 365,
+                'fee' => 6000
+            ]
+        );
 
         // User::factory()->count(5)->create([
         //     'account_id' => $account->id
