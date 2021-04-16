@@ -33,6 +33,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(Subscription::class);
     }
 
+    public function activeSubscription()
+    {
+        return $this->subscriptions()->active();
+    }
+
     public function getNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;

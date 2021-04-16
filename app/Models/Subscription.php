@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 
 class Subscription extends Model
 {
@@ -18,5 +19,10 @@ class Subscription extends Model
     public function subscription_plan()
     {
         return $this->belongsTo(SubscriptionPlan::class);
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('expires_at', '>=', Carbon::now())->latest();
     }
 }

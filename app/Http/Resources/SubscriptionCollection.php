@@ -18,6 +18,7 @@ class SubscriptionCollection extends ResourceCollection
             'id',
             'begins_at',
             'expires_at',
+            'subscription_plan'
         );
     }
 }

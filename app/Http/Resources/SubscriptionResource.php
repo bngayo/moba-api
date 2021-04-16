@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubscriptionResource extends ResourceCollection
+class SubscriptionResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -18,7 +18,7 @@ class SubscriptionResource extends ResourceCollection
             'id' => $this->id,
             'begins_at' => $this->begins_at,
             'expires_at' => $this->expires_at,
-            'subscription_plan' => $this->whenLoaded('subscription_plan')
+            'subscription_plan' => $this->subscription_plan->description
         ];
     }
 }

@@ -22,5 +22,5 @@ Route::get('/subscription/plans')->uses('API\SubscriptionPlanController@index')-
 Route::post('stk_push')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user;
 });

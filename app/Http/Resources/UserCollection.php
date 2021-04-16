@@ -22,7 +22,6 @@ class UserCollection extends ResourceCollection
             'member',
             'photo',
             'deleted_at',
-            'subscriptions'
         );
     }
 }

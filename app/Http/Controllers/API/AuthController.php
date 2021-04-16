@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\API\RegisterRequest;
 use App\Http\Requests\API\LoginRequest;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -13,11 +14,12 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['email' => $request->email,'password' => $request->password])) {
             $user = Auth::user();
+            $user = User::with('activeSubscription')->find(1);
             
-            $success['token'] =  $user->createToken('MobaApp')->plainTextToken;
-            $success['name'] =  $user->name;
+            $data = new UserResource($user);
+            $data['token'] =  $user->createToken('MobaApp')->plainTextToken;
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($data, 'User login successfully.');
         } else {
             return $this->sendError('Invalid credentials. Please retry', []);
         }
