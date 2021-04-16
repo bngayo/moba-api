@@ -21,7 +21,8 @@ class UserCollection extends ResourceCollection
             'phone',
             'member',
             'photo',
-            'deleted_at'
+            'deleted_at',
+            'subscriptions'
         );
     }
 }

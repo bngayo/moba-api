@@ -8,6 +8,8 @@ class Subscription extends Model
 {
     use HasFactory;
 
+    protected $with = ['subscription_plan'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

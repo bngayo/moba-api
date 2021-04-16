@@ -13,13 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/test', function (Request $request) {
-    echo 'Api testing....';
-});
-
 Route::post('login')->uses('API\AuthController@login')->middleware('guest');
 Route::post('register')->uses('API\AuthController@register')->middleware('guest');
 Route::post('reset_password')->uses('API\AuthController@resetPassword')->middleware('guest');
+
+Route::get('/subscription/plans')->uses('API\SubscriptionPlanController@index')->middleware('guest');
 
 Route::post('stk_push')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
 

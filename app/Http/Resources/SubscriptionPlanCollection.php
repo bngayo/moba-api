@@ -14,6 +14,11 @@ class SubscriptionPlanCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->collection->map->only(
+            'id',
+            'description',
+            'fee',
+            'days'
+        );
     }
 }

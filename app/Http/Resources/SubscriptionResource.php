@@ -14,6 +14,11 @@ class SubscriptionResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'begins_at' => $this->begins_at,
+            'expires_at' => $this->expires_at,
+            'subscription_plan' => $this->whenLoaded('subscription_plan')
+        ];
     }
 }

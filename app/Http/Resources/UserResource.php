@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'member' => $this->member,
             'photo' => $this->photo,
             'deleted_at' => $this->deleted_at,
-            'account' => $this->whenLoaded('account')
+            'subscriptions' => $this->whenLoaded('subscriptions')
         ];
     }
 }
