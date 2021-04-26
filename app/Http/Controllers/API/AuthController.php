@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\API\RegisterRequest;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -14,10 +15,11 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['email' => $request->email,'password' => $request->password])) {
             $user = Auth::user();
-            $user = User::with('activeSubscription')->find(1);
             
-            $data = new UserResource($user);
-            $data['token'] =  $user->createToken('MobaApp')->plainTextToken;
+            $data = [
+                'token_type' => 'Bearer',
+                'access_token' => $user->createToken('MobaApp')->plainTextToken
+            ];
 
             return $this->sendResponse($data, 'User login successfully.');
         } else {
@@ -33,5 +35,14 @@ class AuthController extends Controller
         $success['name'] =  $user->name;
    
         return $this->sendResponse($success, 'User registered successfully.');
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = User::with('activeSubscription')->find($request->user('sanctum')->id);
+        
+        $data = new UserResource($user);
+
+        return $this->sendResponse($data, '');
     }
 }
