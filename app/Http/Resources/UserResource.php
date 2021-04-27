@@ -25,7 +25,7 @@ class UserResource extends JsonResource
             'photo' => $this->photo,
             'deleted_at' => $this->deleted_at,
             'subscriptions' => SubscriptionResource::collection($this->whenLoaded('subscriptions')),
-            'active_subscription' => SubscriptionResource::collection($this->whenLoaded('activeSubscription'))->first()
+            'active_subscription' => SubscriptionResource::collection($this->whenLoaded('activeSubscription'))
         ];
     }
 }
