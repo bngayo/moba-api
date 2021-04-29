@@ -29,7 +29,9 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create($request->except('confirm_password'));
+        $user = User::create(
+            $request->except('confirm_password', 'membership_plan', 'payment_frequency')
+        );
 
         $success['id'] = $user->id;
         $success['name'] = $user->name;
