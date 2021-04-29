@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
         $account = Account::create(['name' => 'Acme Corporation']);
 
         User::factory()->create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
+            'name' => 'John Doe',
             'email' => 'johndoe@example.com',
             'phone' => '+254720000000',
             'member' => true,

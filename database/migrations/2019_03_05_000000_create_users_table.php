@@ -13,11 +13,11 @@ class CreateUsersTable extends Migration
             $table->string('name', 25);
             $table->string('email', 50)->unique();
             $table->string('phone', 50)->unique();
-            $table->string('country', 25);
-            $table->string('class', 25);
-            $table->boolean('prefect');
-            $table->string('prefect_title', 25);
-            $table->string('house', 25);
+            $table->string('country', 25)->nullable();
+            $table->string('class', 25)->nullable();
+            $table->boolean('prefect')->nullable();
+            $table->string('prefect_title', 25)->nullable();
+            $table->string('house', 25)->nullable();
             $table->string('password')->nullable();
             $table->boolean('member')->default(false);
             $table->string('photo_path', 100)->nullable();
