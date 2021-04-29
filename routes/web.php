@@ -52,6 +52,8 @@ Route::put('contacts/{contact}/restore')->name('contacts.restore')->uses('Contac
 // Reports
 Route::get('reports')->name('reports')->uses('ReportsController')->middleware('auth');
 
+Route::post('transaction/confirmation')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
+
 // 500 error
 Route::get('500', function () {
     echo $fail;
