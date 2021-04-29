@@ -31,8 +31,8 @@ class AuthController extends Controller
     {
         $user = User::create($request->except('confirm_password'));
 
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['name'] =  $user->name;
+        $success['id'] = $user->id;
+        $success['name'] = $user->name;
    
         return $this->sendResponse($success, 'User registered successfully.');
     }
