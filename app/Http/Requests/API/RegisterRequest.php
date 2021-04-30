@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\API;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,7 +28,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'unique:users,email'],
             'phone' => ['required', 'max:50'],
             'country' => ['required', 'max:50'],
             'class' => ['required', 'max:50'],
@@ -35,7 +36,7 @@ class RegisterRequest extends FormRequest
             'prefect' => ['nullable', 'max:50'],
             'prefect_title' => ['nullable', 'max:50'],
             'password' => ['nullable'],
-            'member' => ['nullable', 'boolean'],
+            'member' => ['required', 'boolean'],
             'photo' => ['nullable', 'image'],
         ];
     }
@@ -62,5 +63,19 @@ class RegisterRequest extends FormRequest
         $response = response()->json($response, 422);
 
         throw new HttpResponseException($response);
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email address is required',
+            'phone.required' => 'Phone number is required',
+        ];
     }
 }
