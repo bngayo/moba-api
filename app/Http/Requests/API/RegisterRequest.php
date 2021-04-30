@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -28,15 +27,15 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'unique:users,email'],
+            'email' => ['required', 'max:50'],
             'phone' => ['required', 'max:50'],
             'country' => ['required', 'max:50'],
             'class' => ['required', 'max:50'],
             'house' => ['nullable', 'max:50'],
-            'prefect' => ['required', 'max:50'],
+            'prefect' => ['nullable', 'max:50'],
             'prefect_title' => ['nullable', 'max:50'],
             'password' => ['nullable'],
-            'member' => ['required', 'boolean'],
+            'member' => ['nullable', 'boolean'],
             'photo' => ['nullable', 'image'],
         ];
     }
