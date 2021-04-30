@@ -34,7 +34,7 @@ class AuthController extends Controller
         // );
 
         $success['id'] = 1;
-        $success['name'] = $request->validated()->name;
+        $success['name'] = $request->name;
    
         return $this->sendResponse($success, 'User registered successfully.');
     }
