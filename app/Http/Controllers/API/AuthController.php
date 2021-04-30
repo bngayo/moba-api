@@ -30,11 +30,11 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = User::create(
-            $request->validated()
+            $request->validated()->only('name', 'email', 'phone')
         );
 
-        $success['id'] = 1; //$user->id;
-        $success['name'] = "Test"; //$user->name;
+        $success['id'] = $user->id;
+        $success['name'] = $user->name;
    
         return $this->sendResponse($success, 'User registered successfully.');
     }
