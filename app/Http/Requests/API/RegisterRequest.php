@@ -63,18 +63,4 @@ class RegisterRequest extends FormRequest
 
         throw new HttpResponseException($response);
     }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email address is required',
-            'phone.required' => 'Phone number is required',
-        ];
-    }
 }
