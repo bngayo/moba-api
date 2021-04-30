@@ -27,10 +27,10 @@ class AuthController extends Controller
         }
     }
 
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
         $user = User::create(
-            $request->validated()
+            $request->all()
         );
 
         $success['id'] = $user->id;
