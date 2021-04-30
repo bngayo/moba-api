@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
+            'email' => ['required', 'max:50', 'unique:users,email'],
             'phone' => ['required', 'max:50'],
             'country' => ['required', 'max:50'],
             'class' => ['required', 'max:50'],
@@ -73,12 +73,9 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => 'First name is required',
-            'last_name.required' => 'Last name is required',
+            'name.required' => 'Name is required',
             'email.required' => 'Email address is required',
             'phone.required' => 'Phone number is required',
-            'password.required' => 'Password is required',
-            'confirm_password.required' => 'Confirm your password',
         ];
     }
 }
