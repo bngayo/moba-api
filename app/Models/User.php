@@ -38,11 +38,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->subscriptions()->active();
     }
 
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
     public function setPasswordAttribute($password)
     {
         if (!$password) {
