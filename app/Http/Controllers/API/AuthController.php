@@ -33,12 +33,7 @@ class AuthController extends Controller
         //     $request->validated()->only('name', 'email', 'phone')
         // );
 
-        User::factory()->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'member' => true,
-        ]);
+        return $request->validated();
 
         $success['id'] = $user->id;
         $success['name'] = $user->name;
