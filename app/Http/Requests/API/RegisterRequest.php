@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'unique:users,email'],
-            'phone' => ['required', 'max:50'],
+            'phone' => ['required', 'max:50', 'unique:users,phone'],
             'country' => ['required', 'max:50'],
             'class' => ['required', 'max:50'],
             'house' => ['nullable', 'max:50'],
