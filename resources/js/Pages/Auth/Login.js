@@ -8,8 +8,8 @@ import TextInput from '@/Shared/TextInput';
 
 export default () => {
   const { data, setData, errors, post, processing } = useForm({
-    email: 'johndoe@example.com',
-    password: 'secret',
+    email: '',
+    password: '',
     remember: true
   });
 
@@ -19,18 +19,19 @@ export default () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6 bg-indigo-900">
+    <div className="flex items-center justify-center min-h-screen p-6 bg-green-900">
       <Helmet title="Login" />
       <div className="w-full max-w-md">
-        <Logo
-          className="block w-full max-w-xs mx-auto text-white fill-current"
-          height={50}
-        />
+        
         <form
           onSubmit={handleSubmit}
           className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl"
         >
-          <div className="px-10 py-12">
+          <div className="px-10 py-2">
+            <Logo
+              className="max-w-xs mx-auto text-white fill-current"
+              width={150}
+            />
             <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
             <div className="w-24 mx-auto mt-6 border-b-2" />
             <TextInput
