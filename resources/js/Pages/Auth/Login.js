@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
-import { useForm } from '@inertiajs/inertia-react';
+import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 import Logo from '@/Shared/Logo';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
@@ -32,7 +32,14 @@ export default () => {
               className="max-w-xs mx-auto text-white fill-current"
               width={150}
             />
-            <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
+            <h1 className="text-3xl font-bold text-center">Sign in to your account</h1>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Or
+              <InertiaLink className="font-medium text-lg text-red-600 hover:text-red-500" href="/register">
+                &nbsp;Create account if not a member
+              </InertiaLink>
+            </p>
+
             <div className="w-24 mx-auto mt-6 border-b-2" />
             <TextInput
               className="mt-10"
