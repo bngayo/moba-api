@@ -16,6 +16,10 @@ Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 
+//Register
+Route::get('register')->name('register')->uses('RegisterController@create')->middleware('guest');
+Route::post('register')->name('register.store')->uses('RegisterController@store')->middleware('guest');
+
 // Dashboard
 Route::get('/')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
