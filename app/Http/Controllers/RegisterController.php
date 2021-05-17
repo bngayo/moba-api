@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use App\Http\Requests\BasicInfoStoreRequest;
+use Monarobase\CountryList\CountryListFacade;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'countries' => CountryListFacade::getList()
+        ]);
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(BasicInfoStoreRequest $request)
     {
-        Auth::user()->account->users()->create(
-            $request->validated()
-        );
-
-        return Redirect::route('users')->with('success', 'User created.');
+        $user = User::create($request->validated());
+       
+        return Redirect::route('register')->with('success', 'User created.');
     }
 }

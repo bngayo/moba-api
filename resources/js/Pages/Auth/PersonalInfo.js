@@ -3,7 +3,7 @@ import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
 import FileInput from '@/Shared/FileInput';
 
-export default (data, errors) => {
+export default (data, setData, errors) => {
     return(
         <>
             <div className="mt-10 sm:mt-0">
@@ -67,11 +67,11 @@ export default (data, errors) => {
                         <TextInput
                             className="w-full pb-8 pr-6"
                             label="Confirm Password"
-                            name="confirm_password"
-                            type="confirm_password"
-                            errors={errors.confirm_password}
-                            value={data.confirm_password}
-                            onChange={e => setData('confirm_password', e.target.value)}
+                            name="password_confirmation"
+                            type="password"
+                            errors={errors.password_confirmation}
+                            value={data.password_confirmation}
+                            onChange={e => setData('password_confirmation', e.target.value)}
                         />
 
                         <FileInput
