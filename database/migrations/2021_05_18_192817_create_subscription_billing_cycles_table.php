@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubscriptionPlansTable extends Migration
+class CreateSubscriptionBillingCyclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSubscriptionPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscription_plans', function (Blueprint $table) {
+        Schema::create('subscription_billing_cycles', function (Blueprint $table) {
             $table->id();
             $table->string("name", 25);
-            $table->string("description", 25);
-            $table->double("amount");
+            $table->integer("days");
+            $table->integer("divisor");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateSubscriptionPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription_plans');
+        Schema::dropIfExists('subscription_billing_cycles');
     }
 }
