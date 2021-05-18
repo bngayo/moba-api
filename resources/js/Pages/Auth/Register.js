@@ -33,6 +33,29 @@ const Register = () => {
     post(route('register.store'));
   }
 
+  function handleMembershipSelect(e) {
+    setData('membership_plan', e.target.value);
+    console.log(e.target.name);
+  }
+
+  function handleYearCompletedSelect(e) {
+    setData('year_completed', e.target.value);
+    const current_date = new Date();
+    const current_year = current_date.getFullYear();
+    const diff = parseInt(current_year) - parseInt(e.target.value);
+    const leftAfter7years = diff > 7;
+
+    document.getElementById('associate_membership').disabled = leftAfter7years;
+
+    if (leftAfter7years) {
+      document.getElementById('full_membership').checked = true;
+    } else {
+      document.getElementById('associate_membership').checked = true;
+    }
+
+    element.dispatchEvent(event);
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
       <Helmet title="Register" />
@@ -66,109 +89,107 @@ const Register = () => {
                   </div>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                  <form action="#" method="POST">
-                    <div className="shadow overflow-hidden sm:rounded-md">
-                      <div className="px-4 py-5 bg-white sm:p-6">
-                        <div className="grid grid-cols-6 gap-3">
-                          <div className="col-span-6">
-                            <TextInput
-                              label="Full Name"
-                              name="name"
-                              errors={errors.name}
-                              value={data.name}
-                              onChange={e => setData('name', e.target.value)}
-                            />
-                          </div>
+                  <div className="shadow overflow-hidden sm:rounded-md">
+                    <div className="px-4 py-5 bg-white sm:p-6">
+                      <div className="grid grid-cols-6 gap-3">
+                        <div className="col-span-6">
+                          <TextInput
+                            label="Full Name"
+                            name="name"
+                            errors={errors.name}
+                            value={data.name}
+                            onChange={e => setData('name', e.target.value)}
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <SelectInput
-                              label="Country"
-                              name="country"
-                              errors={errors.country}
-                              value={data.country}
-                              onChange={e => setData('country', e.target.value)}
-                            >
-                              <option value="">Select Country</option>
-                              {Object.values(countries).map(country => {
-                                return (
-                                  <option value={country}>{country}</option>
-                                );
-                              })}
-                            </SelectInput>
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <SelectInput
+                            label="Country"
+                            name="country"
+                            errors={errors.country}
+                            value={data.country}
+                            onChange={e => setData('country', e.target.value)}
+                          >
+                            <option value="">Select Country</option>
+                            {Object.values(countries).map(country => {
+                              return (
+                                <option key={country} value={country}>
+                                  {country}
+                                </option>
+                              );
+                            })}
+                          </SelectInput>
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <TextInput
-                              label="City/County"
-                              name="city"
-                              errors={errors.city}
-                              value={data.city}
-                              onChange={e => setData('city', e.target.value)}
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <TextInput
+                            label="City/County"
+                            name="city"
+                            errors={errors.city}
+                            value={data.city}
+                            onChange={e => setData('city', e.target.value)}
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <TextInput
-                              label="Email"
-                              name="email"
-                              type="email"
-                              errors={errors.email}
-                              value={data.email}
-                              onChange={e => setData('email', e.target.value)}
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <TextInput
+                            label="Email"
+                            name="email"
+                            type="email"
+                            errors={errors.email}
+                            value={data.email}
+                            onChange={e => setData('email', e.target.value)}
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <TextInput
-                              label="Phone Number"
-                              name="phone"
-                              errors={errors.phone}
-                              value={data.phone}
-                              onChange={e => setData('phone', e.target.value)}
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <TextInput
+                            label="Phone Number"
+                            name="phone"
+                            errors={errors.phone}
+                            value={data.phone}
+                            onChange={e => setData('phone', e.target.value)}
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <TextInput
-                              label="Password"
-                              name="password"
-                              type="password"
-                              errors={errors.password}
-                              value={data.password}
-                              onChange={e =>
-                                setData('password', e.target.value)
-                              }
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <TextInput
+                            label="Password"
+                            name="password"
+                            type="password"
+                            errors={errors.password}
+                            value={data.password}
+                            onChange={e => setData('password', e.target.value)}
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <TextInput
-                              label="Confirm Password"
-                              name="password_confirmation"
-                              type="password"
-                              errors={errors.password_confirmation}
-                              value={data.password_confirmation}
-                              onChange={e =>
-                                setData('password_confirmation', e.target.value)
-                              }
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <TextInput
+                            label="Confirm Password"
+                            name="password_confirmation"
+                            type="password"
+                            errors={errors.password_confirmation}
+                            value={data.password_confirmation}
+                            onChange={e =>
+                              setData('password_confirmation', e.target.value)
+                            }
+                          />
+                        </div>
 
-                          <div className="col-span-6 sm:col-span-3">
-                            <FileInput
-                              className="w-full pb-8 pr-6 lg:w-1/2"
-                              label="Photo"
-                              name="photo"
-                              accept="image/*"
-                              errors={errors.photo}
-                              value={data.photo}
-                              onChange={photo => setData('photo', photo)}
-                            />
-                          </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <FileInput
+                            className="w-full pb-8 pr-6 lg:w-1/2"
+                            label="Photo"
+                            name="photo"
+                            accept="image/*"
+                            errors={errors.photo}
+                            value={data.photo}
+                            onChange={photo => setData('photo', photo)}
+                          />
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -201,13 +222,15 @@ const Register = () => {
                             name="year_completed"
                             errors={errors.year_completed}
                             value={data.year_completed}
-                            onChange={e =>
-                              setData('year_completed', e.target.value)
-                            }
+                            onChange={handleYearCompletedSelect}
                           >
                             <option value="">Select Year</option>
                             {years.map(year => {
-                              return <option value={year}>{year}</option>;
+                              return (
+                                <option key={year} value={year}>
+                                  {year}
+                                </option>
+                              );
                             })}
                           </SelectInput>
                         </div>
@@ -235,6 +258,9 @@ const Register = () => {
                                   id="prefect_yes"
                                   name="prefect"
                                   label="Yes, I was a prefect"
+                                  onChange={e =>
+                                    setData('prefect', e.target.value)
+                                  }
                                 />
                               </div>
                               <div className="flex items-center">
@@ -242,6 +268,9 @@ const Register = () => {
                                   id="prefect_yes"
                                   name="prefect"
                                   label="No, I was not a prefect"
+                                  onChange={e =>
+                                    setData('prefect', e.target.value)
+                                  }
                                 />
                               </div>
                             </div>
@@ -251,10 +280,12 @@ const Register = () => {
                         <div className="col-span-6">
                           <TextInput
                             label="What was your title as a prefect?"
-                            name="house"
-                            errors={errors.house}
-                            value={data.house}
-                            onChange={e => setData('house', e.target.value)}
+                            name="prefect_title"
+                            errors={errors.prefect_title}
+                            value={data.prefect_title}
+                            onChange={e =>
+                              setData('prefect_title', e.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -290,11 +321,12 @@ const Register = () => {
                         <div className="mt-4 space-y-4">
                           <RadioButton
                             className="flex items-center h-5"
-                            id="full_membership"
+                            id="associate_membership"
                             name="membership"
                             label="Associate Membership"
                             description=" For those currently in school or completed
 							  less than 7 years ago"
+                            onChange={handleMembershipSelect}
                           />
                           <RadioButton
                             className="flex items-center h-5"
@@ -302,6 +334,7 @@ const Register = () => {
                             name="membership"
                             label="Full Membership"
                             description="For those more than 7 years since completion"
+                            onChange={handleMembershipSelect}
                           />
                           <RadioButton
                             className="flex items-center h-5"
@@ -309,6 +342,7 @@ const Register = () => {
                             name="membership"
                             label="Life time Membership"
                             description="One time life membership."
+                            onChange={handleMembershipSelect}
                           />
                         </div>
                       </fieldset>
@@ -321,24 +355,36 @@ const Register = () => {
                             id="monthly"
                             name="billing_cycle"
                             label="Monthly"
+                            onChange={e =>
+                              setData('billing_cycle', e.target.value)
+                            }
                           />
 
                           <RadioButton
                             id="quarterly"
                             name="billing_cycle"
                             label="Quarterly"
+                            onChange={e =>
+                              setData('billing_cycle', e.target.value)
+                            }
                           />
 
                           <RadioButton
                             id="semi_annually"
                             name="billing_cycle"
                             label="Semi Annually"
+                            onChange={e =>
+                              setData('billing_cycle', e.target.value)
+                            }
                           />
 
                           <RadioButton
                             id="annually"
                             name="billing_cycle"
                             label="Annually"
+                            onChange={e =>
+                              setData('billing_cycle', e.target.value)
+                            }
                           />
                         </div>
                       </fieldset>
