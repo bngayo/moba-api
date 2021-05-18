@@ -18,7 +18,6 @@ Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 
 //Register
 Route::get('register')->name('register')->uses('RegisterController@create')->middleware('guest');
-Route::get('register/{user}/details')->name('register.details')->uses('RegisterController@showDetailsForm')->middleware('guest');
 Route::post('register')->name('register.store')->uses('RegisterController@store')->middleware('guest');
 
 // Dashboard
@@ -32,6 +31,9 @@ Route::get('users/{user}/edit')->name('users.edit')->uses('UsersController@edit'
 Route::put('users/{user}')->name('users.update')->uses('UsersController@update')->middleware('auth');
 Route::delete('users/{user}')->name('users.destroy')->uses('UsersController@destroy')->middleware('auth');
 Route::put('users/{user}/restore')->name('users.restore')->uses('UsersController@restore')->middleware('auth');
+
+//Payments
+Route::get('subscription/{user}/payment')->name('subscription.payment')->uses('PaymentController@create')->middleware('guest');
 
 // Images
 Route::get('/img/{path}', 'ImagesController@show')->where('path', '.*');

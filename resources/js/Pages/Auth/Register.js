@@ -21,7 +21,7 @@ const Register = () => {
     photo: '',
     year_completed: '',
     house: '',
-    prefect: '',
+    prefect: 'false',
     prefect_title: '',
     membership_plan: '',
     billing_cycle: '',
@@ -35,7 +35,6 @@ const Register = () => {
 
   function handleMembershipSelect(e) {
     setData('membership_plan', e.target.value);
-    console.log(e.target.name);
   }
 
   function handleYearCompletedSelect(e) {
@@ -176,9 +175,8 @@ const Register = () => {
                           />
                         </div>
 
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="col-span-6">
                           <FileInput
-                            className="w-full pb-8 pr-6 lg:w-1/2"
                             label="Photo"
                             name="photo"
                             accept="image/*"
@@ -257,6 +255,8 @@ const Register = () => {
                                 <RadioButton
                                   id="prefect_yes"
                                   name="prefect"
+                                  value="true"
+                                  checked={data.prefect === 'true'}
                                   label="Yes, I was a prefect"
                                   onChange={e =>
                                     setData('prefect', e.target.value)
@@ -267,12 +267,19 @@ const Register = () => {
                                 <RadioButton
                                   id="prefect_yes"
                                   name="prefect"
+                                  value="false"
                                   label="No, I was not a prefect"
+                                  checked={data.prefect === 'false'}
                                   onChange={e =>
                                     setData('prefect', e.target.value)
                                   }
                                 />
                               </div>
+                              {errors.prefect && (
+                                <div className="form-error">
+                                  {errors.prefect}
+                                </div>
+                              )}
                             </div>
                           </fieldset>
                         </div>
@@ -283,6 +290,9 @@ const Register = () => {
                             name="prefect_title"
                             errors={errors.prefect_title}
                             value={data.prefect_title}
+                            disabled={`${
+                              data.prefect === 'false' ? 'disabled' : ''
+                            }`}
                             onChange={e =>
                               setData('prefect_title', e.target.value)
                             }
@@ -318,7 +328,7 @@ const Register = () => {
                     <div className="px-4 py-5 bg-white space-y-3 sm:p-3">
                       <fieldset>
                         <legend className="form-label">Membership Plans</legend>
-                        <div className="mt-4 space-y-4">
+                        <div className="mt-3 space-y-3">
                           <RadioButton
                             className="flex items-center h-5"
                             id="associate_membership"
@@ -331,7 +341,7 @@ const Register = () => {
                           <RadioButton
                             className="flex items-center h-5"
                             id="full_membership"
-                            name="membership"
+                            name="membership_plan"
                             label="Full Membership"
                             description="For those more than 7 years since completion"
                             onChange={handleMembershipSelect}
@@ -339,18 +349,23 @@ const Register = () => {
                           <RadioButton
                             className="flex items-center h-5"
                             id="lifetime_membership"
-                            name="membership"
+                            name="membership_plan"
                             label="Life time Membership"
                             description="One time life membership."
                             onChange={handleMembershipSelect}
                           />
+                          {errors.membership_plan && (
+                            <div className="form-error">
+                              {errors.membership_plan}
+                            </div>
+                          )}
                         </div>
                       </fieldset>
                       <fieldset>
                         <div>
                           <legend className="form-label">Billing Cycle</legend>
                         </div>
-                        <div className="mt-4 space-y-4">
+                        <div className="mt-3 space-y-3">
                           <RadioButton
                             id="monthly"
                             name="billing_cycle"
@@ -386,6 +401,12 @@ const Register = () => {
                               setData('billing_cycle', e.target.value)
                             }
                           />
+
+                          {errors.billing_cycle && (
+                            <div className="form-error">
+                              {errors.billing_cycle}
+                            </div>
+                          )}
                         </div>
                       </fieldset>
                     </div>
