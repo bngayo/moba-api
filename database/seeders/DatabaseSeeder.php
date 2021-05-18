@@ -7,13 +7,18 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Organization;
 use App\Models\SubscriptionPlan;
+use App\Models\SubscriptionBillingCycle;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        Account::truncate();
+
         $account = Account::create(['name' => 'Acme Corporation']);
+
+        User::truncate();
 
         User::factory()->create([
             'name' => 'John Doe',
@@ -22,42 +27,51 @@ class DatabaseSeeder extends Seeder
             'member' => true,
         ]);
 
-        SubscriptionPlan::createMany(
+        $membershipPlans = [
             [
-                'description' => 'Monthly',
+                'name' => 'Associate Membership',
+                'description' => 'For those currently in school or completed less than 7 years ago',
+                'amount' => 1200
+            ],
+            [
+                'name' => 'Full Membership',
+                'description' => 'For those more than 7 years since completion',
+                'amount' => 6000
+            ],
+            [
+                'name' => 'Lifetime Membership',
+                'description' => 'One time life membership',
+                'amount' => 100000
+            ],
+        ];
+
+        $billingCycles = [
+            [
+                'name' => 'Monthly',
                 'days' => 30,
-                'fee' => 500
+                'divisor' => 12
             ],
             [
-                'description' => 'Quartely',
+                'name' => 'Quartely',
                 'days' => 120,
-                'fee' => 1500
+                'divisor' => 4
             ],
             [
-                'description' => 'Semi Annual',
+                'name' => 'Semi Annual',
                 'days' => 180,
-                'fee' => 3000
+                'divisor' => 2
             ],
             [
-                'description' => 'Annual',
+                'name' => 'Annual',
                 'days' => 365,
-                'fee' => 6000
+                'divisor' => 1
             ]
-        );
+        ];
 
-        // User::factory()->count(5)->create([
-        //     'account_id' => $account->id
-        // ]);
+        SubscriptionPlan::truncate();
+        SubscriptionBillingCycle::truncate();
 
-        // $organizations = Organization::factory()->count(100)->create([
-        //     'account_id' => $account->id
-        // ]);
-
-        // Contact::factory()->count(100)->create([
-        //     'account_id' => $account->id
-        // ])
-        //     ->each(function (Contact  $contact) use ($organizations) {
-        //         $contact->update(['organization_id' => $organizations->random()->id]);
-        //     });
+        SubscriptionPlan::insert($membershipPlans);
+        SubscriptionBillingCycle::insert($billingCycles);
     }
 }

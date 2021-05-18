@@ -15,7 +15,7 @@ class CreateSubscriptionBillingCyclesTable extends Migration
     {
         Schema::create('subscription_billing_cycles', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 25);
+            $table->string("name", 50);
             $table->integer("days");
             $table->integer("divisor");
             $table->softDeletes();
