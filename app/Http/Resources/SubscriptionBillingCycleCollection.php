@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SubscriptionPlanCollection extends ResourceCollection
+class SubscriptionBillingCycleCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -17,8 +17,9 @@ class SubscriptionPlanCollection extends ResourceCollection
         return $this->collection->map->only(
             'id',
             'name',
-            'description',
-            'amount'
+            'days',
+            'divisor',
+            'deleted_at'
         );
     }
 }

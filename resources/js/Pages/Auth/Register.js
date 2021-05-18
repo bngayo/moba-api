@@ -9,7 +9,8 @@ import FileInput from '@/Shared/FileInput';
 import RadioButton from '../../Shared/RadioButtonInput';
 
 const Register = () => {
-  const { countries, years } = usePage().props;
+  const { countries, years, membership_plans, billing_cycles } =
+    usePage().props;
   const { data, setData, errors, post, processing } = useForm({
     name: '',
     email: '',
@@ -23,8 +24,8 @@ const Register = () => {
     house: '',
     prefect: 'false',
     prefect_title: '',
-    membership_plan: '',
-    billing_cycle: '',
+    membership_plan: 1,
+    billing_cycle: 1,
     member: true
   });
 
@@ -329,31 +330,27 @@ const Register = () => {
                       <fieldset>
                         <legend className="form-label">Membership Plans</legend>
                         <div className="mt-3 space-y-3">
-                          <RadioButton
-                            className="flex items-center h-5"
-                            id="associate_membership"
-                            name="membership"
-                            label="Associate Membership"
-                            description=" For those currently in school or completed
-							  less than 7 years ago"
-                            onChange={handleMembershipSelect}
-                          />
-                          <RadioButton
-                            className="flex items-center h-5"
-                            id="full_membership"
-                            name="membership_plan"
-                            label="Full Membership"
-                            description="For those more than 7 years since completion"
-                            onChange={handleMembershipSelect}
-                          />
-                          <RadioButton
-                            className="flex items-center h-5"
-                            id="lifetime_membership"
-                            name="membership_plan"
-                            label="Life time Membership"
-                            description="One time life membership."
-                            onChange={handleMembershipSelect}
-                          />
+                          {membership_plans.map(plan => {
+                            return (
+                              <RadioButton
+                                className="flex items-center h-5"
+                                key={plan.id}
+                                id={plan.name.toLowerCase().replace(' ', '_')}
+                                value={plan.id}
+                                name="membership"
+                                label={`${plan.name} -    KSH ${plan.amount}`}
+                                description={plan.description}
+                                checked={
+                                  parseInt(data.membership_plan) ===
+                                  parseInt(plan.id)
+                                }
+                                onChange={e =>
+                                  setData('membership_plan', e.target.value)
+                                }
+                              />
+                            );
+                          })}
+
                           {errors.membership_plan && (
                             <div className="form-error">
                               {errors.membership_plan}
@@ -366,41 +363,24 @@ const Register = () => {
                           <legend className="form-label">Billing Cycle</legend>
                         </div>
                         <div className="mt-3 space-y-3">
-                          <RadioButton
-                            id="monthly"
-                            name="billing_cycle"
-                            label="Monthly"
-                            onChange={e =>
-                              setData('billing_cycle', e.target.value)
-                            }
-                          />
-
-                          <RadioButton
-                            id="quarterly"
-                            name="billing_cycle"
-                            label="Quarterly"
-                            onChange={e =>
-                              setData('billing_cycle', e.target.value)
-                            }
-                          />
-
-                          <RadioButton
-                            id="semi_annually"
-                            name="billing_cycle"
-                            label="Semi Annually"
-                            onChange={e =>
-                              setData('billing_cycle', e.target.value)
-                            }
-                          />
-
-                          <RadioButton
-                            id="annually"
-                            name="billing_cycle"
-                            label="Annually"
-                            onChange={e =>
-                              setData('billing_cycle', e.target.value)
-                            }
-                          />
+                          {billing_cycles.map(cycle => {
+                            return (
+                              <RadioButton
+                                key={cycle.id}
+                                id={cycle.name.toLowerCase().replace(' ', '_')}
+                                name="billing_cycle"
+                                label={cycle.name}
+                                value={cycle.id}
+                                checked={
+                                  parseInt(data.billing_cycle) ===
+                                  parseInt(cycle.id)
+                                }
+                                onChange={e =>
+                                  setData('billing_cycle', e.target.value)
+                                }
+                              />
+                            );
+                          })}
 
                           {errors.billing_cycle && (
                             <div className="form-error">
