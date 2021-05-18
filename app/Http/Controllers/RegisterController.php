@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function create()
     {
-        return Inertia::render('Auth/Register', [
+        return Inertia::render('Auth/RegisterBasicInfo', [
             'countries' => CountryListFacade::getList()
         ]);
     }
@@ -21,6 +21,13 @@ class RegisterController extends Controller
     {
         $user = User::create($request->validated());
        
-        return Redirect::route('register')->with('success', 'User created.');
+        return Redirect::route('register.details', $user->id);
+    }
+
+    public function showDetailsForm()
+    {
+        return Inertia::render('Auth/RegisterSchoolDetails', [
+            'years' => range(date('Y'), 1900)
+        ]);
     }
 }

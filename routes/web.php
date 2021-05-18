@@ -18,6 +18,7 @@ Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 
 //Register
 Route::get('register')->name('register')->uses('RegisterController@create')->middleware('guest');
+Route::get('register/{user}/details')->name('register.details')->uses('RegisterController@showDetailsForm')->middleware('guest');
 Route::post('register')->name('register.store')->uses('RegisterController@store')->middleware('guest');
 
 // Dashboard
