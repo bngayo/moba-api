@@ -15,9 +15,11 @@ class CreateSubscriptionPlansTable extends Migration
     {
         Schema::create('subscription_plans', function (Blueprint $table) {
             $table->id();
+            $table->string("name", 25);
             $table->string("description", 25);
             $table->integer("days");
-            $table->double("fee");
+            $table->integer("divisor");
+            $table->double("amount");
             $table->softDeletes();
             $table->timestamps();
         });
