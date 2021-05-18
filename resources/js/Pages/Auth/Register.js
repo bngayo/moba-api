@@ -38,24 +38,6 @@ const Register = () => {
     setData('membership_plan', e.target.value);
   }
 
-  function handleYearCompletedSelect(e) {
-    setData('year_completed', e.target.value);
-    const current_date = new Date();
-    const current_year = current_date.getFullYear();
-    const diff = parseInt(current_year) - parseInt(e.target.value);
-    const leftAfter7years = diff > 7;
-
-    document.getElementById('associate_membership').disabled = leftAfter7years;
-
-    if (leftAfter7years) {
-      document.getElementById('full_membership').checked = true;
-    } else {
-      document.getElementById('associate_membership').checked = true;
-    }
-
-    element.dispatchEvent(event);
-  }
-
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
       <Helmet title="Register" />
@@ -221,7 +203,9 @@ const Register = () => {
                             name="year_completed"
                             errors={errors.year_completed}
                             value={data.year_completed}
-                            onChange={handleYearCompletedSelect}
+                            onChange={e =>
+                              setData('year_completed', e.target.value)
+                            }
                           >
                             <option value="">Select Year</option>
                             {years.map(year => {

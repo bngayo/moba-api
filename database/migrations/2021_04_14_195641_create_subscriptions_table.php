@@ -16,8 +16,8 @@ class CreateSubscriptionsTable extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->index();
-            $table->integer('transaction_id')->index();
             $table->integer('subscription_plan_id')->index();
+            $table->integer('subscription_billing_cycle_id')->index();
             $table->dateTime('begins_at');
             $table->dateTime('expires_at');
             $table->softDeletes();

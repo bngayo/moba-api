@@ -21,6 +21,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $casts = [
         'member' => 'boolean',
+        'prefect' => 'boolean'
     ];
 
     public function account()
@@ -45,6 +46,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         }
 
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function setPrefectAttribute($prefect)
+    {
+        if (!$prefect) {
+            return;
+        }
+
+        $this->attributes['prefect'] = ($prefect === 'true' ? 1 : 0) ;
     }
 
     public function setPhotoAttribute($photo)
