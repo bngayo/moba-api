@@ -19,10 +19,9 @@ export default () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6 bg-green-900">
+    <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
       <Helmet title="Login" />
       <div className="w-full max-w-md">
-        
         <form
           onSubmit={handleSubmit}
           className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl"
@@ -32,10 +31,15 @@ export default () => {
               className="max-w-xs mx-auto text-white fill-current"
               width={150}
             />
-            <h1 className="text-3xl font-bold text-center">Sign in to your account</h1>
+            <h1 className="text-3xl font-bold text-center">
+              Sign in to your account
+            </h1>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or
-              <InertiaLink className="font-medium text-lg text-red-600 hover:text-red-500" href="/register">
+              <InertiaLink
+                className="font-medium text-lg text-red-600 hover:text-red-500"
+                href="/register"
+              >
                 &nbsp;Create account if not a member
               </InertiaLink>
             </p>
