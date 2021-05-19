@@ -40,7 +40,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
-      <Helmet title="Register" />
+      <Helmet title="MOBA | Register" />
       <div className="w-full overflow-hidden bg-gray-100 rounded shadow">
         <Logo
           className="max-w-xs mx-auto text-white fill-current"
