@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
         User::truncate();
 
         User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
+            'name' => 'System Admin',
+            'email' => 'admin@moba.or.ke',
             'phone' => '+254720000000',
-            'member' => true,
+            'member' => false,
+            'password' => 'site.dev.6925'
         ]);
 
         $membershipPlans = [

@@ -13,7 +13,7 @@ trait LockedDemoUser {
      */
     public function authorize()
     {
-        return !$this->route('user')->isDemoUser();
+        return !$this->route('user')->isSystemAdmin();
     }
 
     public function failedAuthorization() {
