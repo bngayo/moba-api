@@ -1,7 +1,10 @@
 import React from 'react';
+import { usePage } from '@inertiajs/inertia-react';
 import MainMenuItem from '@/Shared/MainMenuItem';
 
 export default ({ className }) => {
+  const { auth } = usePage().props;
+
   return (
     <div className={className}>
       <MainMenuItem text="Dashboard" link="dashboard" icon="dashboard" />

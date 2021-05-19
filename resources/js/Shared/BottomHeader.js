@@ -33,13 +33,6 @@ export default () => {
             >
               My Profile
             </InertiaLink>
-            {/* <InertiaLink
-              href={route('users')}
-              className="block px-6 py-2 hover:bg-green-600 hover:text-white"
-              onClick={() => setMenuOpened(false)}
-            >
-              Manage Users
-            </InertiaLink> */}
             <InertiaLink
               as="button"
               href={route('logout')}
