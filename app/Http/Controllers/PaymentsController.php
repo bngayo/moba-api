@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use Inertia\Inertia;
+use App\Http\Resources\UserResource;
 
 class PaymentsController extends Controller
 {
-    public function create()
+    public function create(User $user)
     {
-        return Inertia::render('Payments/Create');
+        return Inertia::render('Auth/Payment', [
+            'user' => new UserResource($user->load('activeSubscription'))
+        ]);
     }
 }

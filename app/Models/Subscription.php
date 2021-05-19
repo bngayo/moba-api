@@ -9,7 +9,7 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $with = ['subscription_plan'];
+    protected $with = ['subscription_plan', 'subscription_billing_cycle'];
 
     public function user()
     {
@@ -19,6 +19,11 @@ class Subscription extends Model
     public function subscription_plan()
     {
         return $this->belongsTo(SubscriptionPlan::class);
+    }
+
+    public function subscription_billing_cycle()
+    {
+        return $this->belongsTo(SubscriptionBillingCycle::class);
     }
 
     public function scopeActive($query)

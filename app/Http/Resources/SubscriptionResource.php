@@ -18,7 +18,9 @@ class SubscriptionResource extends JsonResource
             'id' => $this->id,
             'begins_at' => $this->begins_at,
             'expires_at' => $this->expires_at,
-            'subscription_plan' => $this->subscription_plan->description
+            'subscription_plan' => $this->subscription_plan->name,
+            'amount' => $this->subscription_plan->amount/$this->subscription_billing_cycle->divisor,
+            'billing_cycle' => $this->subscription_billing_cycle->name,
         ];
     }
 }

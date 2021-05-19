@@ -16,8 +16,6 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -25,7 +23,7 @@ class UserResource extends JsonResource
             'photo' => $this->photo,
             'deleted_at' => $this->deleted_at,
             'subscriptions' => SubscriptionResource::collection($this->whenLoaded('subscriptions')),
-            'active_subscription' => new SubscriptionResource($this->whenLoaded('activeSubscription'))
+            'active_subscription' => new SubscriptionResource($this->whenLoaded('activeSubscription')->first())
         ];
     }
 }

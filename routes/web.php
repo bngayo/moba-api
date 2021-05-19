@@ -33,7 +33,7 @@ Route::delete('users/{user}')->name('users.destroy')->uses('UsersController@dest
 Route::put('users/{user}/restore')->name('users.restore')->uses('UsersController@restore')->middleware('auth');
 
 //Payments
-Route::get('subscription/{user}/payment')->name('subscription.payment')->uses('PaymentController@create')->middleware('guest');
+Route::get('subscription/{user}/payment')->name('subscription.payment')->uses('PaymentsController@create')->middleware('guest');
 
 // Images
 Route::get('/img/{path}', 'ImagesController@show')->where('path', '.*');

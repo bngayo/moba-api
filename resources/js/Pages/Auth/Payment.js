@@ -8,7 +8,10 @@ import TextInput from '@/Shared/TextInput';
 export default () => {
   const { user } = usePage().props;
   const { data, setData, errors, post, processing } = useForm({
-    phone: ''
+    phone: user.phone,
+    membership: user.active_subscription.subscription_plan,
+    amount: user.active_subscription.amount,
+    billing_cycle: user.active_subscription.billing_cycle
   });
 
   function handleSubmit(e) {
@@ -18,8 +21,8 @@ export default () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
-      <Helmet title="Login" />
-      <div className="w-full max-w-md">
+      <Helmet title="Payment" />
+      <div className="w-1/2 overflow-hidden bg-gray-100 rounded shadow">
         <form
           onSubmit={handleSubmit}
           className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl"
@@ -30,34 +33,36 @@ export default () => {
               width={150}
             />
             <h1 className="text-3xl font-bold text-center">Payment</h1>
-            <p className="mt-5 text-center text-sm text-gray-600"></p>
+            <h3 className="mt-5 pb-8 text-center text-lg text-red-600">
+              Hello {user.name}, complete your payment to activate your account.
+            </h3>
 
             <TextInput
               className="w-full pb-8 pr-6"
               label="Membership Type"
-              name="phone"
+              name="membership"
               type="text"
-              value={data.phone}
+              value={data.membership}
               disabled
-              onChange={e => setData('phone', e.target.value)}
+              onChange={e => setData('membership', e.target.value)}
             />
             <TextInput
               className="w-full pb-8 pr-6"
               label="Subscription Amount"
               name="amount"
               type="text"
-              value={data.phone}
+              value={data.amount}
               disabled
-              onChange={e => setData('phone', e.target.value)}
+              onChange={e => setData('amount', e.target.value)}
             />
             <TextInput
               className="w-full pb-8 pr-6"
               label="Billing Cycle"
-              name="phone"
+              name="billing_cycle"
               type="text"
-              value={data.phone}
+              value={data.billing_cycle}
               disabled
-              onChange={e => setData('phone', e.target.value)}
+              onChange={e => setData('billing_cycle', e.target.value)}
             />
             <TextInput
               className="w-full pb-8 pr-6"
