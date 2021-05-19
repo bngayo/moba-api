@@ -90,7 +90,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function scopeOrderByName($query)
     {
-        $query->orderBy('last_name')->orderBy('first_name');
+        $query->orderBy('name')->orderBy('created_at');
     }
 
     public function scopeWhereRole($query, $role)

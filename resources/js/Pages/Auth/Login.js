@@ -20,7 +20,7 @@ export default () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
-      <Helmet title="MOBA | Login" />
+      <Helmet title="Login | Moba CRM" />
       <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}

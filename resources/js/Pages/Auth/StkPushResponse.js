@@ -9,7 +9,7 @@ export default () => {
   const { flash } = usePage().props;
   return (
     <div className="flex items-center justify-center min-h-screen p-6 bg-gray-200">
-      <Helmet title="MOBA | Payment" />
+      <Helmet title="Mpesa Payment | Moba CRM" />
       <div className="w-1/2 overflow-hidden bg-gray-100 rounded shadow">
         <div className="px-10 py-2">
           <Logo
