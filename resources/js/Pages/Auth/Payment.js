@@ -16,7 +16,7 @@ export default () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route('login.attempt'));
+    post(route('mpesa.stk_push'));
   }
 
   return (

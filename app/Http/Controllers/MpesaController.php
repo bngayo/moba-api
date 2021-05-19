@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 use Carbon\Carbon;
+use Inertia\Inertia;
 
 class MpesaController extends Controller
 {
@@ -64,7 +67,13 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
 
-        return $curl_response;
+        $response = json_decode($curl_response, true);
+
+        if (isset($response['ResponseCode'])) {
+            return Redirect::route('mpesa.stk_push_status')->with('success', $response);
+        }
+
+        return Redirect::route('mpesa.stk_push_status')->with('error', $response);
     }
 
     /**
@@ -141,5 +150,10 @@ class MpesaController extends Controller
         $curl_response = curl_exec($curl);
 
         echo $curl_response;
+    }
+
+    public function getStkPushStatus()
+    {
+        return Inertia::render('Auth/StkPushResponse');
     }
 }

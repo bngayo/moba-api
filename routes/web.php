@@ -59,7 +59,9 @@ Route::put('contacts/{contact}/restore')->name('contacts.restore')->uses('Contac
 // Reports
 Route::get('reports')->name('reports')->uses('ReportsController')->middleware('auth');
 
-Route::post('transaction/confirmation')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
+Route::get('mpesa/status')->name('mpesa.stk_push_status')->uses('MPesaController@getStkPushStatus')->middleware('guest');
+Route::post('stk_push')->name('mpesa.stk_push')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
+Route::post('transaction/confirmation')->name('mpesa.confirmation')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
 
 // 500 error
 Route::get('500', function () {

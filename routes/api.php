@@ -19,6 +19,4 @@ Route::post('reset_password')->uses('API\AuthController@resetPassword')->middlew
 
 Route::get('/subscription/plans')->uses('API\SubscriptionPlanController@index')->middleware('guest');
 
-Route::post('stk_push')->uses('MPesaController@customerMpesaSTKPush')->middleware('guest');
-
 Route::middleware('auth:sanctum')->get('/user', 'API\AuthController@getUser');
