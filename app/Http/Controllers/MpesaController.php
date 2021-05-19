@@ -9,8 +9,8 @@ class MpesaController extends Controller
 {
     public function generateAccessToken()
     {
-        $consumer_key="IrEYxKaeRwPP82vGl99oGVp7VoyLBaPA";
-        $consumer_secret="goNAcXiBTMYbRgaK";
+        $consumer_key="gbV4576LDAHqjvav3ONLOLB1JpOgtoIG";
+        $consumer_secret="oTBARjSNV43DudRy";
         $credentials = base64_encode($consumer_key.":".$consumer_secret);
         $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         
@@ -49,7 +49,7 @@ class MpesaController extends Controller
             'Password' => $this->getLipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
-            'Amount' => 5,
+            'Amount' => 1,
             'PartyA' => 254721798372, // replace this with your phone number
             'PartyB' => 174379,
             'PhoneNumber' => 254721798372, // replace this with your phone number
