@@ -39,7 +39,7 @@ class MpesaController extends Controller
         return $lipa_na_mpesa_password;
     }
 
-    public function customerMpesaSTKPush()
+    public function customerMpesaSTKPush(Request $request)
     {
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
@@ -53,10 +53,10 @@ class MpesaController extends Controller
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => 1,
-            'PartyA' => 254721798372, // replace this with your phone number
+            'PartyA' => $request->phone, // replace this with your phone number
             'PartyB' => 174379,
-            'PhoneNumber' => 254721798372, // replace this with your phone number
-            'CallBackURL' => 'https://192.168.0.30:8000/',
+            'PhoneNumber' => $request->phone, // replace this with your phone number
+            'CallBackURL' => 'https://crm.moba.or.ke/transaction/confirmation',
             'AccountReference' => "Moba App",
             'TransactionDesc' => "Testing stk push on sandbox"
         ];
