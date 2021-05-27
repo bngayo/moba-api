@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'max:50', 'unique:users,email'],
             'phone' => ['required', 'max:50', 'unique:users,phone'],
             'country' => ['required', 'max:50'],
-            'class' => ['required', 'max:50'],
+            'year_completed' => ['required', 'max:50'],
             'house' => ['nullable', 'max:50'],
             'prefect' => ['nullable', 'max:50'],
             'prefect_title' => ['nullable', 'max:50'],
