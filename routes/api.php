@@ -19,4 +19,7 @@ Route::post('reset_password')->uses('API\AuthController@resetPassword')->middlew
 
 Route::get('/subscription/plans')->uses('API\SubscriptionPlanController@index')->middleware('guest');
 
+Route::post('transaction/validation')->name('mpesa.validation')->uses('MpesaController@mpesaValidation')->middleware('guest');
+Route::post('transaction/confirmation')->name('mpesa.confirmation')->uses('MpesaController@mpesaConfirmation')->middleware('guest');
+
 Route::middleware('auth:sanctum')->get('/user', 'API\AuthController@getUser');

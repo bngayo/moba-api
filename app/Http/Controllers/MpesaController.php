@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 
 use Carbon\Carbon;
 use Inertia\Inertia;
+use App\Models\MpesaTransaction;
+use Illuminate\Support\Facades\Log;
 
 class MpesaController extends Controller
 {
@@ -104,25 +107,53 @@ class MpesaController extends Controller
      */
     public function mpesaConfirmation(Request $request)
     {
-        $content = json_decode($request->getContent());
+        $content = json_decode($request->getContent(), true);
 
-        $mpesa_transaction = new MpesaTransaction();
-        $mpesa_transaction->transaction_type = $content->TransactionType;
-        $mpesa_transaction->transaction_id = $content->TransID;
-        $mpesa_transaction->transaction_time = $content->TransTime;
-        $mpesa_transaction->transaction_amount = $content->TransAmount;
-        $mpesa_transaction->business_shortcode = $content->BusinessShortCode;
-        $mpesa_transaction->bill_ref_number = $content->BillRefNumber;
-        $mpesa_transaction->invoice_number = $content->InvoiceNumber;
-        $mpesa_transaction->Organisation_account_balance = $content->OrgAccountBalance;
-        $mpesa_transaction->third_party_trans_id = $content->ThirdPartyTransID;
-        $mpesa_transaction->msisdn = $content->MSISDN;
-        $mpesa_transaction->first_name = $content->FirstName;
-        $mpesa_transaction->middle_name = $content->MiddleName;
-        $mpesa_transaction->last_name = $content->LastName;
-        $mpesa_transaction->save();
+        Log::debug("Mpesa Callback", $content);
+        
+        if (isset($content)) {
+            $body = $content['Body'];
+            $stkCallback = $body['stkCallback'];
 
-        // Responding to the confirmation request
+            $merchantRequestID = null;
+            $checkoutRequestID = null;
+            $resultCode = null;
+            $resultDesc = null;
+            $callbackMetadata = null;
+            $amount = null;
+            $mpesaReceiptNumber = null;
+            $balance = null;
+            $transactionDate = null;
+            $phoneNumber = null;
+
+            if (isset($stkCallback)) {
+                $merchantRequestID = $stkCallback['MerchantRequestID'];
+                $checkoutRequestID = $stkCallback['CheckoutRequestID'];
+                $resultCode = $stkCallback['ResultCode'];
+                $resultDesc = $stkCallback['ResultDesc'];
+                $callbackMetadata = $stkCallback['CallbackMetadata'];
+                $amount = isset($callbackMetadata['Item'][0]['Value']) ? $callbackMetadata['Item'][0]['Value'] : 0;
+                $mpesaReceiptNumber = isset($callbackMetadata['Item'][1]['Value']) ? $callbackMetadata['Item'][1]['Value']: '';
+                $balance = isset($callbackMetadata['Item'][2]['Value']) ? $callbackMetadata['Item'][2]['Value']: 0;
+                $transactionDate = isset($callbackMetadata['Item'][3]['Value']) ? $callbackMetadata['Item'][3]['Value']: '';
+                $phoneNumber = isset($callbackMetadata['Item'][4]['Value']) ? $callbackMetadata['Item'][4]['Value']: '';
+            }
+           
+            $mpesa_transaction = new MpesaTransaction();
+            $mpesa_transaction->merchant_request_id = $merchantRequestID;
+            $mpesa_transaction->checkout_request_id = $checkoutRequestID;
+            $mpesa_transaction->result_code = $resultCode;
+            $mpesa_transaction->result_desc= $resultDesc;
+            $mpesa_transaction->transaction_date = $transactionDate;
+            $mpesa_transaction->phone_number = $phoneNumber;
+            $mpesa_transaction->mpesa_receipt_number = $mpesaReceiptNumber;
+            $mpesa_transaction->amount = $amount;
+            $mpesa_transaction->balance = $balance;
+        
+            $mpesa_transaction->save();
+        }
+
+        // // Responding to the confirmation request
         $response = new Response();
         $response->headers->set("Content-Type", "text/xml; charset=utf-8");
         $response->setContent(json_encode(["C2BPaymentConfirmationResult"=>"Success"]));
@@ -141,10 +172,10 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            'ShortCode' => "600141",
+            'ShortCode' => "174379",
             'ResponseType' => 'Completed',
-            'ConfirmationURL' => "https://moba.tandaa.africa/transaction/confirmation",
-            'ValidationURL' => "https://moba.tandaa.africa/validation"
+            'ConfirmationURL' => "https://moba.tandaa.africa/api/transaction/confirmation",
+            'ValidationURL' => "https://moba.tandaa.africa/api/validation"
         )));
         
         $curl_response = curl_exec($curl);
