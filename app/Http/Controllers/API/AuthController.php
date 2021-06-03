@@ -23,7 +23,7 @@ class AuthController extends Controller
 
             return $this->sendResponse($data, 'User login successfully.');
         } else {
-            return $this->sendError('Invalid credentials. Please retry', []);
+            return $this->sendResponse([], 'Invalid credentials. Please retry', 401);
         }
     }
 
