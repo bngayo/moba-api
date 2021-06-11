@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('login')->uses('API\AuthController@login')->middleware('guest');
-Route::post('register')->uses('API\AuthController@register')->middleware('guest');
+Route::post('user/register')->uses('API\RegisterController@store')->middleware('guest');
+Route::middleware('auth:sanctum')->post('user/{user}/update_school_info')->uses('API\RegisterController@updateSchoolInfo');
+Route::middleware('auth:sanctum')->post('user/{user}/subscribe')->uses('API\SubscriptionController@store');
 Route::post('reset_password')->uses('API\AuthController@resetPassword')->middleware('guest');
 
 Route::get('/subscription/plans')->uses('API\SubscriptionPlanController@index')->middleware('guest');

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class SubscriptionRequest extends FormRequest
 {
     /**
     * Determine if the user is authorized to make this request.
@@ -27,13 +27,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'unique:users,email'],
-            'phone' => ['required', 'max:50', 'unique:users,phone'],
-            'country' => ['required', 'max:50'],
-            'password' => ['nullable'],
-            'member' => ['required', 'boolean'],
-            'photo' => ['nullable', 'image'],
+            'subscription_plan_id' => ['required'],
+            'subscription_billing_cycle_id' => ['required'],
+            'payment_ref' => ['nullable']
         ];
     }
 

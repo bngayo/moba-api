@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\RegisterRequest;
+use App\Http\Requests\API\UpdateSchoolInfoRequest;
 
 class RegisterController extends Controller
 {
@@ -31,6 +34,25 @@ class RegisterController extends Controller
    
         return $this->sendResponse($success, 'User registered successfully.');
     }
+
+    public function updateBasicInfo(User $user, UpdateBasicInfoRequest $request)
+    {
+        $user->update(
+            $request->validated()
+        );
+
+        return $this->sendResponse([], 'Basic info updated successfully.');
+    }
+
+    public function updateSchoolInfo(User $user, UpdateSchoolInfoRequest $request)
+    {
+        $user->update(
+            $request->validated()
+        );
+
+        return $this->sendResponse([], 'School info updated successfully.');
+    }
+
 
     public function update(RegisterRequest $request)
     {

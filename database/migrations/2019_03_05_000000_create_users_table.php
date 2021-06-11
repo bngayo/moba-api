@@ -10,6 +10,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title', 5)->nullable();
             $table->string('name', 25);
             $table->string('email', 50)->unique();
             $table->string('phone', 50)->unique();
@@ -22,7 +23,11 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->boolean('member')->default(true);
             $table->string('photo_path', 100)->nullable();
-            $table->integer('step')->default(1);
+            $table->text('about')->nullable();
+            $table->boolean('employed')->default(true);
+            $table->string('employer')->nullable();
+            $table->string('business_name')->nullable();
+            $table->string('job_title')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

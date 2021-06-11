@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class UpdateSchoolInfoRequest extends FormRequest
 {
     /**
     * Determine if the user is authorized to make this request.
@@ -27,13 +27,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'unique:users,email'],
-            'phone' => ['required', 'max:50', 'unique:users,phone'],
-            'country' => ['required', 'max:50'],
-            'password' => ['nullable'],
-            'member' => ['required', 'boolean'],
-            'photo' => ['nullable', 'image'],
+            'year_completed' => ['required', 'max:50'],
+            'house' => ['required', 'max:50'],
+            'prefect' => ['required', 'max:50'],
+            'prefect_title' => ['nullable', 'max:50'],
         ];
     }
 
@@ -69,9 +66,9 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email address is required',
-            'phone.required' => 'Phone number is required',
+            'year_completed.required' => 'The year completed is required',
+            'house.required' => 'The house/dormitory is required',
+            'prefect.required' => 'Indicate whether you were a prefect or not',
         ];
     }
 }

@@ -27,13 +27,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'unique:users,email'],
-            'phone' => ['required', 'max:50', 'unique:users,phone'],
-            'country' => ['required', 'max:50'],
-            'password' => ['nullable'],
-            'member' => ['required', 'boolean'],
-            'photo' => ['nullable', 'image'],
+            'profession' => ['nullable', 'max:50'],
+            'is_employed' => ['required', 'boolean'],
+            'employer' => ['nullable', 'max:50'],
+            'business_name' => ['nullable', 'max:50'],
         ];
     }
 
@@ -69,9 +66,8 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email address is required',
-            'phone.required' => 'Phone number is required',
+            'profession.required' => 'Profession description is required',
+            'is_employer.required' => 'Please select your employment status',
         ];
     }
 }
