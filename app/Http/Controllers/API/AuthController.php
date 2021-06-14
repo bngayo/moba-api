@@ -17,6 +17,7 @@ class AuthController extends Controller
             $user = Auth::user();
             
             $data = [
+                'id' => $user->id,
                 'token_type' => 'Bearer',
                 'access_token' => $user->createToken('MobaApp')->plainTextToken
             ];
@@ -41,9 +42,9 @@ class AuthController extends Controller
 
     public function getUser(Request $request)
     {
-        $user = User::with('activeSubscription')->find($request->user('sanctum')->id);
+        // $user = User::with('activeSubscription')->find($request->user('sanctum')->id);
         
-        $data = new UserResource($user);
+        $data = new UserResource($request->user('sanctum'));
 
         return $this->sendResponse($data, '');
     }

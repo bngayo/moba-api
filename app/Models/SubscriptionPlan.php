@@ -15,6 +15,6 @@ class SubscriptionPlan extends Model
 
     public function scopeOrderByFee($query)
     {
-        $query->orderBy('fee');
+        $query->orderBy('amount');
     }
 }

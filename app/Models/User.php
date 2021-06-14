@@ -36,7 +36,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function activeSubscription()
     {
-        return $this->subscriptions()->active()->first();
+        return $this->subscriptions()->active()->first()->get();
     }
 
     public function setPasswordAttribute($password)
